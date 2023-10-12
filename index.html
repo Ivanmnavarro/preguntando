@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="estilos.css">
+    <title>PREGUNTADOS</title>
+</head>
+
+<body onload="comenzarCuentaRegresiva()">
+
+    <h1>Preguntado! Mundial 2022!</h1>
+
+    <h2>Tiempo restante</h2>
+
+    <div>
+        <h1 id="cuentaRegresiva"></h1>
+    </div>
+
+    <ol>
+
+        <li>
+            <p>¿En que pais se desarrollo?</p>
+            <input id="nombre" type="text">
+        </li>
+        <li>
+            <p>¿Cuantos equipos participaron?</p>
+            <input id="años" type="number">
+        </li>
+        <li>
+            <p>¿Qué equipo fue el campeon?</p>
+            <input id="animal" type="text">
+        </li>
+        <li>
+            <p>¿Quien fue el goleador del certamen?</p>
+            <input id="color" type="text">
+        </li>
+        <li>
+            <p>¿Quien fue el mejor arquero del certamen?</p>
+            <input id="numero" type="text">
+        </li>
+    </ol>
+    <div>
+        <button onclick="finalizado()" id="finalizar">Listo</button>
+        <button onclick="volverAIntentar()" id="reinicio">Reiniciar</button>
+    </div>
+    <audio id="audioFinal">
+        <source src="marioFinal.mp3" type="audio/mpeg">
+        Sonido no habilitado
+    </audio>
+
+    <script>
+        let tiempoTerminado;
+        let intervaloDeTiempo;
+
+        let tiempo = document.getElementById("tiempoRestante");
+
+        function comenzarCuentaRegresiva() {
+            tiempoTerminado = setTimeout(tiempoCumplido, 30000);
+            intervaloDeTiempo = setInterval(tictac, 1000);
+
+            document.getElementById("cuentaRegresiva").textContent = 30;
+        }
+
+        function tictac() {
+            let tiempo = document.getElementById("cuentaRegresiva").textContent;
+            document.getElementById("cuentaRegresiva").textContent = tiempo - 1;
+        }
+
+        function tiempoCumplido() {
+            clearInterval(intervaloDeTiempo);
+            document.getElementById("cuentaRegresiva").textContent = 0;
+            document.getElementById("audioFinal").play();
+            alert("GAME OVER");
+        }
+
+        function finalizado() {
+            clearTimeout(tiempoTerminado);
+            clearInterval(intervaloDeTiempo);
+
+            let fecha = new Date;
+            let respuesta1 = document.getElementById("nombre").value;
+            let respuesta2 = document.getElementById("años").value;
+            let respuesta3 = document.getElementById("animal").value;
+            let respuesta4 = document.getElementById("color").value;
+            let respuesta5 = document.getElementById("numero").value;
+
+            let mensaje = fecha.toLocaleDateString("es-Es") + "\n" +
+                "1. " + respuesta1 + "\n" +
+                "2. " + respuesta2 + "\n" +
+                "3. " + respuesta3 + "\n" +
+                "4. " + respuesta4 + "\n" +
+                "5. " + respuesta5
+
+            alert(mensaje);
+        }
+
+        function volverAIntentar() {
+            location.reload();
+        }
+
+    </script>
+
+
+</body>
+
+</html>
